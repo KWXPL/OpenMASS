@@ -1,0 +1,17 @@
+CompileFlags:
+  CompilationDatabase: build
+  Add:
+    - -Wall
+    - -Wextra
+    - -Wpedantic
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - performance-*
+      - portability-*
+
+InlayHints:
+  Enabled: true
+
