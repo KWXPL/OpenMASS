@@ -5,6 +5,9 @@
     "context": "."
   },
   "remoteUser": "vscode",
+  "mounts": [
+    "source=openmass-codex-data,target=/home/vscode/.codex,type=volume"
+  ],
   "containerEnv": {
     "CC": "clang",
     "CXX": "clang++"
@@ -15,6 +18,7 @@
         "llvm-vs-code-extensions.vscode-clangd",
         "ms-vscode.cmake-tools",
         "ms-vscode.cpptools",
+        "openai.chatgpt",
         "vadimcn.vscode-lldb"
       ],
       "settings": {
@@ -45,6 +49,6 @@
       }
     }
   },
-  "postCreateCommand": "clang++ --version && clangd --version && cmake --version && ninja --version"
+  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.codex && clang++ --version && clangd --version && cmake --version && ninja --version"
 }
 
