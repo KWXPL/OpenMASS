@@ -1,0 +1,44 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "native",
+      "displayName": "Native x86-64 (Clang)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/native",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "raspberry-pi-arm64",
+      "displayName": "Raspberry Pi OS 64-bit (AArch64)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/raspberry-pi-arm64",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/raspberry-pi-aarch64.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "native",
+      "configurePreset": "native"
+    },
+    {
+      "name": "raspberry-pi-arm64",
+      "configurePreset": "raspberry-pi-arm64",
+      "targets": [
+        "gps_console"
+      ]
+    }
+  ]
+}

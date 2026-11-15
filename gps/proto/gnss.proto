@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package openmass.gps.v2;
+
+// Complete AT+CGNSINF sample returned by the SIM7000E GNSS receiver.
+// Units and ranges follow SIM7000 Series AT Command Manual, section 15.2.2.
+message GnssInfo {
+  uint32 schema_version = 1;
+  bool running = 2;
+  bool has_fix = 3;
+  string utc = 4;
+  optional double latitude = 5;
+  optional double longitude = 6;
+  optional double msl_altitude = 7;
+  optional double speed_over_ground = 8;
+  optional double course_over_ground = 9;
+  optional uint32 fix_mode = 10;
+  string reserved_1 = 11;
+  optional double hdop = 12;
+  optional double pdop = 13;
+  optional double vdop = 14;
+  string reserved_2 = 15;
+  optional uint32 gps_satellites_in_view = 16;
+  optional uint32 gnss_satellites_used = 17;
+  optional uint32 glonass_satellites_in_view = 18;
+  string reserved_3 = 19;
+  optional uint32 cn0_max = 20;
+  optional double horizontal_position_accuracy = 21;
+  optional double vertical_position_accuracy = 22;
+}
