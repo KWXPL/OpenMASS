@@ -36,3 +36,29 @@ cmake -S . -B build -G Ninja \
 cmake --build build
 ./build/openmass
 ```
+
+### Logowanie
+
+Przy pierwszej konfiguracji CMake pobiera bibliotekę spdlog z GitHub. Program
+`gps_console` zapisuje komunikaty na stderr oraz dopisuje je do pliku
+`MASSlogs/openmass_gps_status.log` obok pliku wykonywalnego, niezależnie od
+katalogu uruchomienia. Do `MASSlogs/openmass_gps_data.log` dopisywane są pełne,
+surowe linie `+CGNSINF` z danymi GPS, po jednej na odczyt, wraz z czasem
+zapisu. Dane są rozdzielone przecinkami w kolejności zwracanej przez moduł;
+puste pola oznaczają dane niepodane przez moduł. Pliki powstają automatycznie;
+proces musi mieć uprawnienia do zapisu w katalogu programu. Wyznaczanie ścieżki
+wymaga Linuksa i `/proc`. Pliki logów nie są obecnie rotowane. Istniejący
+plik `openmass.log` nie jest przenoszony ani usuwany.
+
+Przy uruchomieniu w terminalu program nie wypisuje binarnych danych GPS na
+ekran. Aby otrzymać strumień protobuf, przekieruj stdout do pliku lub potoku,
+np. `./gps_console > pozycje.pb`. Logi pozostają widoczne na stderr.
+
+W dowolnym pliku źródłowym podłączonym do spdlog można użyć np.:
+
+```cpp
+#include <spdlog/spdlog.h>
+
+spdlog::info("GPS device: {}", device);
+spdlog::warn("No GPS response");
+```

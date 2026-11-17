@@ -7,6 +7,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+include(FetchContent)
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG 6fa36017cfd5731d617e1a934f0e5ea9c4445b13 # v1.15.3
+    GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(spdlog)
+
 add_executable(
     gps_console
     gps/src/main.cpp
@@ -17,6 +26,7 @@ add_executable(
 )
 
 target_include_directories(gps_console PRIVATE gps/headers)
+target_link_libraries(gps_console PRIVATE spdlog::spdlog)
 
 target_compile_options(
     gps_console
